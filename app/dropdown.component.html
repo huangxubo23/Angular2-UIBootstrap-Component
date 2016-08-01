@@ -1,0 +1,156 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">{{title}}</div>
+  <div class="panel-body">
+    <h4>Dropdown:</h4>
+    <p>Dropdown component are toggleable, contextual overlays for displaying lists of links and more. They’re made interactive with the included dropdown directives.</p>
+    <p>Base specifications: bootstrap 3 or bootstrap 4.</p>
+    <hr/>
+
+    <div>
+      <h4>Dropdown Example:</h4>
+      <div>
+        <h5 class="header-bolder">toogle dropdown</h5>
+        <!-- simple dropdown -->
+        <pre style="width:500px;">Simple dropdown is now: <em>{{simpleOpen}}</em></pre>
+        <span dropdown (onToggle)="toggled($event)">
+        <a href id="simple-dropdown" dropdownToggle>
+          Click me for a dropdown, yo!
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+          <li *ngFor="let choice of items">
+            <a class="dropdown-item" href="#">{{choice}}</a>
+          </li>
+        </ul>
+       </span>
+        <!-- Single button -->
+        <div class="btn-group" dropdown [isOpen]="status.isopen">
+          <button id="single-button" type="button" class="btn btn-primary" dropdownToggle [disabled]="disabled">
+            Button dropdown <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </div>
+        <!-- Split button -->
+        <div class="btn-group" dropdown>
+          <button id="split-button" type="button" class="btn btn-danger">Action</button>
+          <button type="button" class="btn btn-danger dropdown-toggle" dropdownToggle>
+            &nbsp;<span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="split-button">
+            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </div>
+        <hr/>
+        <p>
+          <button type="button" class="btn btn-primary btn-sm" (click)="toggleDropdown($event)">Toggle button dropdown
+          </button>
+          <button type="button" class="btn btn-warning btn-sm" (click)="disabled = !disabled">Enable/Disable</button>
+        </p>
+        <hr>
+        <!-- Single button with keyboard nav -->
+        <div class="btn-group" dropdown keyboardNav="true">
+          <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" dropdownToggle>
+            Dropdown with keyboard navigation <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+            <li class="divider dropdown-divider"></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 class="mr-t-20">Code Example:</h4>
+      <div>
+        <h5 class="header-bolder">mockup</h5>
+        <pre class="prettyprint">
+          <code>
+            &lt;!-- simple dropdown --&gt;
+            &lt;span dropdown (onToggle)="toggled($event)"&gt;
+              &lt;a href id="simple-dropdown" dropdownToggle&gt;Click me for a dropdown, yo!&lt;/a&gt;
+              &lt;ul class="dropdown-menu" aria-labelledby="simple-dropdown"&gt;
+                &lt;li *ngFor="let choice of items"&gt;&lt;a class="dropdown-item" href="#"&gt;{{choice}}&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+             &lt;/span&gt;
+             &lt;!-- single button dropdown --&gt;
+             &lt;div class="btn-group" dropdown [isOpen]="status.isopen"&gt;
+               &lt;button id="single-button" type="button" class="btn btn-primary" dropdownToggle [disabled]="disabled"&gt;Button dropdown &lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+               &lt;ul class="dropdown-menu" role="menu" aria-labelledby="single-button"&gt;
+                 &lt;li role="menuitem"&gt;&lt;a class="dropdown-item" href="#"&gt;Action&lt;/a&gt;&lt;/li&gt;
+                 ...
+               &lt;/ul&gt;
+             &lt;/div&gt;
+             &lt;!-- Single button with keyboard nav --&gt;
+             &lt;div class="btn-group" dropdown keyboardNav="true"&gt;
+               &lt;button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" dropdownToggle&gt;Dropdown with keyboard navigation &lt;span class="caret"&gt;&lt;/span&gt;&lt;/button&gt;
+               &lt;ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav"&gt;
+                 &lt;li role="menuitem"&gt;&lt;a class="dropdown-item" href="#"&gt;Action&lt;/a&gt;&lt;/li&gt;
+                 ...
+               &lt;/ul&gt;
+             &lt;/div&gt;
+          </code>
+        </pre>
+      </div>
+
+      <div>
+        <h5 class="header-bolder">typescript</h5>
+        <pre class="prettyprint">
+          <code>
+            export class DropdownComponent {
+              public title = 'Dropdown Component';
+              public disabled: boolean = false;
+              public simpleOpen:boolean=false;
+              public status: {isopen: boolean} = {isopen: false};
+              public items: Array &lt; string &gt;= ['The first choice', 'And another choice for you.', 'but wait! A third!'];
+              public toggleDropdown($event: MouseEvent): vodi {
+                $event.preventDefault();
+                $event.stopPropagation();
+                this.status.isopen = !this.status.isopen;
+              }
+              public toggled(open:boolean):void{
+                this.simpleOpen=open;
+              }
+            }
+          </code>
+        </pre>
+      </div>
+    </div>
+
+    <div class="mr-t-20">
+      <h4 id="dropdown-properties">Dropdown properties:</h4>
+      <ul>
+        <li><code>isOpen</code> (<code>?boolean=false</code>) - if <code>true</code> dropdown will be opened</li>
+        <li><code>autoClose</code> (<code>?string='always'</code>) - behaviour vary:
+          <ul>
+            <li><code>nonInput</code> - (default) automatically closes the dropdown when any of its elements is clicked — as long as the clicked element is not an <code>input</code> or a <code>textarea</code>.</li>
+            <li><code>always</code> - automatically closes the dropdown when any of its elements is clicked</li>
+            <li><code>outsideClick</code> - closes the dropdown automatically only when the user clicks any element outside the dropdown</li>
+            <li><code>disabled</code> - disables the auto close. You can then control the open/close status of the dropdown manually, by using <code>is-open</code>. Please notice that the dropdown will still close if the toggle is clicked, the <code>esc</code>              key is pressed or another dropdown is open</li>
+          </ul>
+        </li>
+        <li><code>keyboardNav</code> (<code>?boolean=false</code>) - if <code>true</code> will enable navigation of dropdown list elements with the arrow keys</li>
+        <li><code>appendToBody</code> (<em>not yet tested</em>) (<code>?boolean=false</code>) - if <code>true</code> <code>dropdownMenu</code> content will be appended to the body. This is useful when the dropdown button is inside a div with <code>overflow: hidden</code>,
+          and the menu would otherwise be hidden</li>
+      </ul>
+      <h4 id="dropdown-events">Dropdown events:</h4>
+      <ul>
+        <li><code>onToggle</code> - fired when <code>dropdown</code> toggles, <code>$event:boolean</code> equals dropdown <code>isOpen</code> state</li>
+      </ul>
+      <h4 id="dropdown-toggle-properties">Dropdown toggle properties:</h4>
+      <ul>
+        <li><code>disabled</code> (<code>?boolean=false</code>) - if <code>true</code> dropdown toggle will be disabled</li>
+      </ul>
+    </div>
+  </div>
+</div>

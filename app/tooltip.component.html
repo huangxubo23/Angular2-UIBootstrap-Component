@@ -1,0 +1,61 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">Tooltip Component</div>
+  <div class="panel-body">
+    <h4>Tooltip:</h4>
+    <p>Tooltip are an updated version, which don’t rely on images, use CSS3 for animations, and much more.</p>
+    <p>Base specifications: bootstrap 3 or bootstrap 4.</p>
+    <hr/>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Tooltip Example:</h4>
+        <div class="form-group">
+          <label>Dynamic Tooltip Text</label>
+          <input type="text" [(ngModel)]="dynamicTooltipText" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Dynamic Tooltip Popup Text</label>
+          <input type="text" [(ngModel)]="dynamicTooltip" class="form-control">
+        </div>
+        <p>
+          Pellentesque <a href="#" [tooltip]="dynamicTooltip">{{dynamicTooltipText}}</a>, sit amet venenatis urna cursus eget nunc scelerisque viverra mauris, in aliquam. Tincidunt lobortis feugiat vivamus at
+          <a href="#" tooltipPlacement="left" tooltip="On the Left!">left</a> eget arcu dictum varius duis at consectetur lorem. Vitae elementum curabitur
+          <a href="#" tooltipPlacement="right" tooltip="On the Right!">right</a> nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas
+          <a href="#" tooltipPlacement="bottom" tooltip="On the Bottom!">bottom</a> pharetra convallis posuere morbi leo urna,
+          <a href="#" [tooltipAnimation]="false" tooltip="I don't fade. :-(">fading</a> at elementum eu, facilisis sed odio morbi quis commodo odio. In cursus
+          <a href="#" tooltipPopupDelay='1000' tooltip='appears with delay'>delayed</a> turpis massa tincidunt dui ut. nunc sed velit dignissim sodales ut eu sem integer vitae. Turpis egestas
+        </p>
+
+        <form role="form">
+          <div class="form-group" ngClass="{'has-error' : !inputTooltipModel}">
+             <label for="inputTooltipModel">Disable tooltips conditionally:</label>
+             <input type="text" name="inputTooltipModel" [(ngModel)]="inputTooltipModel" class="form-control" placeholder="Hover over this for a tooltip until this is filled" tooltip="Enter something in this input field to disable this tooltip" tooltipPlacement="top" tooltipTrigger="mouseenter" [tooltipEnable]="!inputTooltipModel" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <h4>Example code:</h4>
+      <pre class="prettyprint">
+         <code>
+           // Tooltip example template
+           &lt;input type="text" name="inputTooltipModel" [(ngModel)]="inputTooltipModel" class="form-control" placeholder="Hover over this for a tooltip until this is filled" tooltip="Enter something in this input field to disable this tooltip" tooltipPlacement="top" tooltipTrigger="mouseenter" [tooltipEnable]="!inputTooltipModel" /&gt;
+         </code>
+      </pre>
+      <h4>Tooltip properties:</h4>
+      <ul>
+        <li><code>tooltip</code> (<code>string</code>) - text of tooltip</li>
+        <li><code>tooltipPlacement</code> (<code>?string='top'</code>) - tooltip positioning instruction, supported positions: 'top', 'bottom', 'left', 'right'</li>
+        <li><code>tooltipAnimation</code> (<code>?boolean=true</code>) - if <code>false</code> fade tooltip animation will be disabled</li>
+        <li><code>tooltipPopupDelay</code> (<em>not implemented</em>) (<code>?numer=0</code>) - time in milliseconds before tooltip occurs</li>
+        <li><code>tooltipTrigger</code> (<em>not implemented</em>) (<code>?Array&lt;string&gt;</code>) - array of event names which triggers tooltip opening</li>
+        <li><code>tooltipEnable</code> (<code>?boolean=true</code>) - if <code>false</code> tooltip is disabled and will not be shown</li>
+        <li><code>tooltipAppendToBody</code> (<em>not implemented</em>) (<code>?boolean=false</code>) - if <code>true</code> tooltip will be appended to body</li>
+        <li><code>tooltipClass</code> (<em>not implemented</em>) (<code>?string</code>) - custom tooltip class applied to the tooltip container.</li>
+        <li><code>tooltipIsOpen</code> (<code>?boolean=false</code>) - if <code>true</code> tooltip is currently visible</li>
+      </ul>
+    </div>
+
+  </div>
+</div>

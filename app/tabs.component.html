@@ -1,0 +1,185 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">Tabs Component</div>
+  <div class="panel-body">
+    <h4>Tabs:</h4>
+    <p>Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus.</p>
+    <p>Base specifications: bootstrap 3 or bootstrap 4.</p>
+    <hr/>
+
+    <div>
+      <h4>Default Tabset:</h4>
+      <p>Select a tab by setting active binding to true:</p>
+      <p>
+        <button type="button" class="btn btn-default btn-sm mr-r-20" (click)="tabs[0].active = true">Select Default Tab</button>
+        <button type="button" class="btn btn-default btn-sm" (click)="tabs[1].active = true" [disabled]="tabs[1].disabled">Select Success Tab</button>
+        <button type="button" class="btn btn-default btn-sm mr-r-20" (click)="tabs[1].disabled = ! tabs[1].disabled">Enable / Disable Success Tab</button>
+        <span>Select new tab type:</span>
+        <select name="newTabType" class="input-sm" [(ngModel)]="newTypeTab">
+          <option value="default">Default</option>
+          <option value="removable">Removable</option>
+          <option value="warning">Warning</option>
+          <option value="success">Success</option>
+          <option value="error">Error</option>
+          <option value="info">Info</option>
+        </select>
+        <button type="button" class="btn btn-success btn-sm" (click)="addNewTab(newTypeTab)">Add New Tab</button>
+      </p>
+      <tabset class="common-tabset">
+        <tab heading="Static title">
+          <div class="common-tab-content">
+            <h4>Static content</h4>
+            <p>Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus. Nested tabs are not supported.</p>
+            <p>Base specifications: bootstrap 3 or bootstrap 4</p>
+          </div>
+        </tab>
+        <tab (select)="alertTab()">
+          <template tabHeading><i class="glyphicon glyphicon-bell text-danger"></i> Alert!</template>
+          <div class="common-tab-content">
+            <h4>Alert content</h4>
+            <div>I have got an HTML heading, and a select callback. Pretty cool!</div>
+          </div>
+        </tab>
+        <tab *ngFor="let tabz of tabs" [active]="tabz.active" (select)="tabz.active = true" (deselect)="tabz.active = false" [disabled]="tabz.disabled" [removable]="tabz.removable" (removed)="removeTabHandler(tabz)">
+          <template tabHeading>
+            <i *ngIf="tabz.type=='warning'" class="glyphicon glyphicon-bell text-warning"></i>
+            <i *ngIf="tabz.type=='error'" class="glyphicon glyphicon-remove-sign text-danger"></i>
+            <i *ngIf="tabz.type=='success'" class="glyphicon glyphicon-ok-sign text-success"></i>
+            <i *ngIf="tabz.type=='info'" class="glyphicon glyphicon-info-sign text-info"></i>
+            {{tabz?.title}}
+          </template>
+          <div class="common-tab-content">
+            <h4>{{tabz?.content}}</h4>
+          </div>
+        </tab>
+      </tabset>
+
+      <div class="mr-t-20">
+        <h4>Default Tabset Example Code:</h4>
+        <pre class="prettyprint lang-html">
+           <code>
+             // Tabset template
+             &lt;tabset&gt;
+               &lt;tab heading="Static title"&gt;
+                 &lt;h4&gt;Static content&lt;/h4&gt;
+                 &lt;div class="common-tab-content"&gt;
+                   &lt;p&gt;Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus. Nested tabs are not supported.&lt;/p&gt;
+                   &lt;p&gt;Base specifications: bootstrap 3 or bootstrap 4&lt;/p&gt;
+                 &lt;/div&gt;
+               &lt;/tab&gt;
+               &lt;tab (select)="alertTab()"&gt;
+                 &lt;template tabHeading&gt;&lt;i class="glyphicon glyphicon-bell text-danger"&gt;&lt;/i&gt; Alert!&lt;/template&gt;
+                 &lt;div class="common-tab-content"&gt;
+                   &lt;h4&gt;Alert content&lt;/h4&gt;
+                   &lt;div&gt;I have got an HTML heading, and a select callback. Pretty cool!&lt;/div&gt;
+                 &lt;/div&gt;
+               &lt;/tab&gt;
+               &lt;tab *ngFor="let tabz of tabs" [active]="tabz.active" (select)="tabz.active = true" (deselect)="tabz.active = false" [disabled]="tabz.disabled" [removable]="tabz.removable" (removed)="removeTabHandler(tabz)"&gt;
+                 &lt;template tabHeading&gt;
+                   &lt;i *ngIf="tabz.type=='warning'" class="glyphicon glyphicon-bell text-warning"&gt;&lt;/i&gt;
+                   &lt;i *ngIf="tabz.type=='error'" class="glyphicon glyphicon-remove-sign text-danger"&gt;&lt;/i&gt;
+                   &lt;i *ngIf="tabz.type=='success'" class="glyphicon glyphicon-ok-sign text-success"&gt;&lt;/i&gt;
+                   &lt;i *ngIf="tabz.type=='info'" class="glyphicon glyphicon-info-sign text-info"&gt;&lt;/i&gt;
+                   { { tabz?.title } }
+                 &lt;/template&gt;
+                 &lt;div class="common-tab-content"&gt;
+                   &lt;h4&gt;{ { tabz?.content } }&lt;/h4&gt;
+                 &lt;/div&gt;
+               &lt;/tab&gt;
+             &lt;/tabset&gt;
+           </code>
+        </pre>
+      </div>
+
+      <hr />
+
+      <h4>Vertical Tabset:</h4>
+      <tabset [vertical]="true" type="pills">
+        <tab heading="Vertical 1">
+          <div class="common-verticalTab-content">Vertical content 1</div>
+        </tab>
+        <tab heading="Vertical 2">
+          <div class="common-verticalTab-content">Vertical content 2</div>
+        </tab>
+      </tabset>
+
+      <div class="mr-t-20">
+        <h4>Vertical Tabset Example Code:</h4>
+        <pre class="prettyprint lang-html">
+           <code>
+             // Vertical Tabset template
+             &lt;tabset [vertical]="true" type="pills"&gt;
+               &lt;tab heading="Vertical 1"&gt;
+                 &lt;div class="common-verticalTab-content"&gt;Vertical content 1&lt;/div&gt;
+               &lt;/tab&gt;
+               &lt;tab heading="Vertical 2"&gt;
+                 &lt;div class="common-verticalTab-content"&gt;Vertical content 2&lt;/div&gt;
+               &lt;/tab&gt;
+             &lt;/tabset&gt;
+           </code>
+        </pre>
+      </div>
+
+      <hr />
+
+      <h4>Justified Tabset:</h4>
+      <p>Justified Tabset is base on bootstrap 3, because Bootstrap 4 doesn't have justified classes.</p>
+      <tabset [justified]="true">
+        <tab heading="Justified">
+          <div class="common-tab-content">Justified content</div>
+        </tab>
+        <tab heading="SJ">
+          <div class="common-tab-content">Short Labeled Justified content</div>
+        </tab>
+        <tab heading="Long Justified">
+          <div class="common-tab-content">Long Labeled Justified content</div>
+        </tab>
+      </tabset>
+
+      <div class="mr-t-20">
+        <h4>Justified Tabset Example Code:</h4>
+        <pre class="prettyprint lang-html">
+           <code>
+             // Justified Tabset template
+             &lt;tabset [justified]="true"&gt;
+               &lt;tab heading="Justified"&gt;
+                 &lt;div class="common-tab-content"&gt;Justified content&lt;/div&gt;
+               &lt;/tab&gt;
+               &lt;tab heading="SJ"&gt;
+                 &lt;div class="common-tab-content"&gt;Short Labeled Justified content&lt;/div&gt;
+               &lt;/tab&gt;
+               &lt;tab heading="Long Justified"&gt;
+                 &lt;div class="common-tab-content"&gt;Long Labeled Justified content&lt;/div&gt;
+               &lt;/tab&gt;
+             &lt;/tabset&gt;
+           </code>
+        </pre>
+      </div>
+
+      <hr/>
+
+      <div class="mr-t-20">
+        <h4>Tabset properties:</h4>
+        <ul>
+           <li><code>vertical</code> (<code>?boolean=false</code>) - if <code>true</code> tabs will be placed vertically</li>
+           <li><code>justified</code> (<code>?boolean=false</code>) - if <code>true</code> tabs fill the container and have a consistent width</li>
+           <li><code>type</code> (<code>?string='tabs'</code>) - navigation context class: 'tabs' or 'pills'</li>
+        </ul>
+        <h4>Tab properties:</h4>
+        <ul>
+           <li><code>heading</code> (<code>string</code>) - tab header text</li>
+           <li><code>active</code> (<code>?boolean=false</code>) - if tab is active equals true, or set <code>true</code> to activate tab</li>
+           <li><code>disabled</code> (<code>?boolean=false</code>) - if <code>true</code> tab can not be activated</li>
+           <li><code>removable</code> (<code>?boolean=false</code>) - if <code>true</code> tab can be removable, additional button will appear</li>
+        </ul>
+        <h4>Tab events:</h4>
+        <ul>
+           <li><code>select</code> - fired when <code>tab</code> became active, <code>$event:Tab</code> equals to selected instance of <code>Tab</code> component</li>
+           <li><code>deselect</code> - fired when <code>tab</code> became inactive, <code>$event:Tab</code> equals to deselected instance of <code>Tab</code> component</li>
+           <li><code>removed</code> - fired before <code>tab</code> will be removed</li>
+        </ul>
+        <h4>Tab heading:</h4>
+        <p>Should be used to mark <code>&lt;template&gt;</code> element as a template for tab heading</p>
+      </div>
+    </div>
+  </div>
+</div>

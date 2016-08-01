@@ -1,0 +1,196 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">{{title}}</div>
+  <div class="panel-body">
+    <h4>Modals:</h4>
+    <p>Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.</p>
+    <p>Base specifications: bootstrap 3 or bootstrap 4.</p>
+    <hr/>
+
+    <div class="mr-t-20">
+      <h4>Modals Example:</h4>
+      <div>
+        <h5 class="header-bolder">Static Modals</h5>
+        <button class="btn btn-primary" (click)="lgModal.show()">Large modal</button>
+        <button type="button" class="btn btn-primary" (click)="mdModal.show()">Middle modal</button>
+        <button type="button" class="btn btn-primary" (click)="smModal.show()">Small modal</button>
+
+        <!-- large modal -->
+        <div id="lgModal" bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" (click)="lgModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Large modal</h4>
+              </div>
+              <div class="modal-body">
+                Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="lgModal.hide()">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- middle modal -->
+        <div bsModal #mdModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myMiddleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" (click)="mdModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Middle modal</h4>
+              </div>
+              <div class="modal-body">
+                Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="mdModal.hide()">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Small modal -->
+        <div bsModal #smModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header modal-header-success">
+                <button type="button" class="close" (click)="smModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Small modal</h4>
+              </div>
+              <div class="modal-body">
+                Modals are streamlined, but flexible, dialog prompts with the minimum required functionality and smart defaults.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="smModal.hide()">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clearfix">
+        <h5 class="header-bolder">Dynamic Modals</h5>
+        <p>Please select your option.</p>
+        <form class="col-md-8">
+          <div>
+            <label for="infoType">infomation type</label>
+            <select class="form-control" name="infoType" [(ngModel)]="dialogInfo.type">
+              <option value="Info">info</option>
+              <option value="Success">success</option>
+              <option value="Warning">warning</option>
+              <option value="Danger">danger</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="infoMessage">infomation message:</label>
+            <input type="text" class="form-control" name="infoMessage"  [(ngModel)]="dialogInfo.content" required="required">
+            <!-- <textarea class="form-control" rows="3" [(ngModel)]="dynamicModalContent"></textarea> -->
+          </div>
+          <div>
+            <button type="button" class="btn btn-primary" (click)="showDialog()">Create Modals</button>
+          </div>
+        </form>
+        <!-- Dynamic modal -->
+        <div bsModal #dynamicModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myDynamicModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-md">
+            <div class="modal-content">
+              <div class="modal-header modal-header-success">
+                <button type="button" class="close" (click)="dynamicModal.hide()" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{dialogInfo.title}}</h4>
+              </div>
+              <div class="modal-body">
+                <span class="glyphicon large-font" [ngClass]="{'glyphicon-info-sign text-info':dialogInfo.type==='Info','glyphicon-ok-sign text-success':dialogInfo.type==='Success','glyphicon-warning-sign text-warning':dialogInfo.type==='Warning','glyphicon-remove-sign text-danger':dialogInfo.type==='Danger'}"></span> {{dynamicModalContent}}
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" *ngFor="let bt of dialogInfo.buttons" (click)="dialogBtnClick(bt)">{{bt}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr/>
+
+    <div class="mr-t-20">
+      <h4>Modals Example Code:</h4>
+      <pre class="prettyprint lang-html">
+        <code>
+          &lt;!-- mockup --&gt;
+           &lt;button type="button" class="btn btn-primary" (click)="showDialog()"&gt;Create Modals&lt;/button&gt;
+           &lt;!-- Dynamic modal --&gt;
+           &lt;div bsModal #dynamicModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myDynamicModalLabel" aria-hidden="true"&gt;
+             &lt;div class="modal-dialog modal-md"&gt;
+               &lt;div class="modal-content"&gt;
+                 &lt;div class="modal-header modal-header-success"&gt;
+                   &lt;button type="button" class="close" (click)="dynamicModal.hide()" aria-label="Close"&gt;
+                     &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
+                   &lt;/button&gt;
+                   &lt;h4 class="modal-title"&gt;{ {dialogInfo.title} }&lt;/h4&gt;
+                 &lt;/div&gt;
+                 &lt;div class="modal-body"&gt;
+                   &lt;span class="glyphicon" [ngClass]="{'glyphicon-info-sign text-info':dialogInfo.type==='Info','glyphicon-ok-sign text-success':dialogInfo.type==='Success','glyphicon-warning-sign text-warning':dialogInfo.type==='Warning','glyphicon-remove-sign text-danger':dialogInfo.type==='Danger'}"&gt;&lt;/span&gt;
+                    { {dynamicModalContent} }
+                 &lt;/div&gt;
+                 &lt;div class="modal-footer"&gt;
+                   &lt;button type="button" class="btn btn-primary" *ngFor="let bt of dialogInfo.buttons" (click)="dialogBtnClick(bt)"&gt;{ {bt} }&lt;/button&gt;
+                 &lt;/div&gt;
+               &lt;/div&gt;
+             &lt;/div&gt;
+           &lt;/div&gt;
+        </code>
+      </pre>
+      <pre class="prettyprint">
+        <code>
+          // typescript
+          export class ModalsComponent {
+              @ViewChild('dynamicModal') dynamicModal:any;
+              public title="Modals Component";
+              public required:boolean=false;
+              public dynamicModalContent:string='This is a dynamic modal.';
+              public dynamicModalInfoType:string='Info';
+              public dialogInfo:any={
+                title:'',
+                type:'Info',
+                content:'This is a dynamic modal.',
+                buttons:[]
+              };
+              public showDialog(){
+                this.dialogInfo.title=this.dialogInfo.type+' Modal';
+                this.dialogInfo.buttons=this.dialogInfo.type==='Warning'? ['Continue','Cancel']:['OK'];
+                this.dynamicModal.show();
+              }
+              public dialogBtnClick(btnType:any){
+                console.log(btnType);
+                this.dynamicModal.hide();
+              }
+          }
+        </code>
+      </pre>
+    </div>
+    <div class="mr-t-20">
+      <h4 id="modal-properties">Modal properties:</h4>
+      <ul>
+        <li><code>config</code> (<code>?:ModalOptions</code>) - modal configuration (default is: <code>backdrop:true,keyboard: true,focus: true,show: true</code>)</li>
+      </ul>
+      <h4 id="modal-methods">Modal methods:</h4>
+      <ul>
+        <li><code>show</code> - show modal</li>
+        <li><code>hide</code> - hides modal</li>
+        <li><code>toggle</code> - toggles modal visibility</li>
+      </ul>
+      <h4 id="modal-events">Modal events:</h4>
+      <ul>
+        <li><code>onShow</code> - This event fires immediately when the <code>show</code> instance method is called.</li>
+        <li><code>onShown</code> - This event is fired when the modal has been made visible to the user (will wait for CSS transitions to complete)</li>
+        <li><code>onHide</code> - This event is fired immediately when the <code>hide</code> instance method has been called.</li>
+        <li><code>onHidden</code> - This event is fired when the modal has finished being hidden from the user (will wait for CSS transitions to complete).</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">{{title}}</div>
+  <div class="panel-body">
+    <h4>Datepicker:</h4>
+    <p>The Angular2 Datepicker is a highly configurable component that adds datepicker functionality to your pages. You can customize the date format and language, restrict the selectable date ranges.</p>
+    <p>Note: <code>datepicker</code> requires moment for data parsing, until Intl polyfill will be implemented.</p>
+    <hr/>
+
+    <div>
+      <h4>Datepicker Example:</h4>
+      <div>
+        <h5 class="header-bolder">Set Date</h5>
+        <pre style="width:500px;">Selected date is: <em *ngIf="dt">{{ getDate() | date:'fullDate'}}</em></pre>
+        <h4>Inline</h4>
+        <div style="display:inline-block;">
+          <datepicker [(ngModel)]="dt" [minDate]="minDate" [maxDate]="maxDate" [showWeeks]="true" [formatDayTitle]="format" [yearRange]=10 [startingDay]="1" [onlyCurrentMonth]="onlyCurrentMonth"></datepicker>
+        </div>
+        <!-- <hr /> -->
+        <div>
+          <button type="button" class="btn btn-sm btn-info" (click)="today()">Today</button>
+          <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="d20160606();">2016-06-06</button>
+          <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()">Min date</button>
+          <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMax()">Max date</button>
+          <button type="button" class="btn btn-sm btn-default btn-secondary" (click)="onlyCurrentMonth=!onlyCurrentMonth">onlyCurrentMonth</button>
+          <button type="button" class="btn btn-sm btn-danger" (click)="clear()">Clear</button>
+        </div>
+      </div>
+
+      <h4 class="mr-t-20">Datepicker Example Code:</h4>
+      <div>
+        <h5 class="header-bolder">markup</h5>
+        <pre class="prettyprint">
+          <code>
+            &lt;datepicker [(ngModel)]="dt" [minDate]="minDate" [maxDate]="maxDate" [showWeeks]="true" [formatDayTitle]="format" [yearRange]=10 [startingDay]="1" [onlyCurrentMonth]="onlyCurrentMonth"&gt;&lt;/datepicker&gt;
+            &lt;button type="button" class="btn btn-sm btn-info" (click)="today()"&gt;Today&lt;/button&gt;
+            &lt;button type="button" class="btn btn-sm btn-default btn-secondary" (click)="d20160606();"&gt;2016-06-06&lt;/button&gt;
+            &lt;button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMin()"&gt;Min date&lt;/button&gt;
+            &lt;button type="button" class="btn btn-sm btn-default btn-secondary" (click)="toggleMax()"&gt;Max date&lt;/button&gt;
+            &lt;button type="button" class="btn btn-sm btn-default btn-secondary" (click)="onlyCurrentMonth=!onlyCurrentMonth"&gt;onlyCurrentMonth&lt;/button&gt;
+            &lt;button type="button" class="btn btn-sm btn-danger" (click)="clear()"&gt;Clear&lt;/button&gt;
+          </code>
+        </pre>
+      </div>
+
+      <div>
+        <h5 class="header-bolder">typescript</h5>
+        <pre class="prettyprint">
+            <code>
+              export class DatepickerComponent {
+                  public title="Datepicker Component";
+                  public dt:Date = new Date();
+                  public minDate:Date = void 0;
+                  public maxDate:Date;
+                  public events:Array&lt;any&gt;;
+                  public tomorrow:Date;
+                  public afterTomorrow:Date;
+                  public formats:Array&lt;string&gt; = ['DD-MM-YYYY', 'YYYY/MM/DD', 'DD.MM.YYYY', 'shortDate'];
+                  public format:string = this.formats[0]; //default format
+                  public onlyCurrentMonth:boolean=false;
+                  public dateOptions:any = {
+                  formatYear: 'YY',
+                  startingDay: 1
+                };
+                private opened:boolean = false;
+                public constructor() {
+                  (this.tomorrow = new Date()).setDate(this.tomorrow.getDate() + 1);
+                  (this.afterTomorrow = new Date()).setDate(this.tomorrow.getDate() + 2);
+                  (this.minDate = new Date()).setDate(this.minDate.getDate() - 3650);
+                  (this.maxDate=new Date()).setDate(this.maxDate.getDate()+3650);
+                  this.events = [
+                    {date: this.tomorrow, status: 'full'},
+                    {date: this.afterTomorrow, status: 'partially'}
+                  ];
+                }
+                public getDate():number {
+                  return this.dt && this.dt.getTime() || new Date().getTime();
+                }
+                public today():void {
+                  this.dt = new Date();
+                }
+                public d20160606():void {
+                  this.dt = moment('2016-06-06', 'YYYY-MM-DD').toDate();
+                }
+                public open():void {
+                  this.opened = !this.opened;
+                }
+                public clear():void {
+                  this.dt = void 0;
+                }
+                public toggleMin():void {
+                  this.dt = new Date(this.minDate.valueOf());
+                }
+                public toggleMax():void{
+                  this.dt=new Date(this.maxDate.valueOf());
+                }
+              }
+            </code>
+          </pre>
+      </div>
+    </div>
+
+    <div class="mr-t-20">
+      <h4 id="date-picker-properties">Date picker properties:</h4>
+      <ul>
+        <li><code>ngModel</code> (<code>:Date</code>) - binds to date</li>
+        <li><code>datepickerMode</code> (<code>?string='day'</code>) - sets datepicker mode, supports: <code>day</code>, <code>month</code>, <code>year</code></li>
+        <li><code>minDate</code> (<code>?Date=null</code>) - oldest selectable date</li>
+        <li><code>maxDate</code> (<code>?Date=null</code>) - latest selectable date</li>
+        <li><code>dateDisabled</code> (<code>?Array&lt;{date:Date, mode:string}&gt;</code>) - array of disabled dates if <code>mode</code> is <code>day</code>, or years, etc.</li>
+        <li><code>customClass</code> (<code>?Array&lt;{date:Date, mode:string, clazz:string}&gt;</code>) - array of custom css classes to be applied to targeted dates</li>
+        <li><code>showWeeks</code> (<code>?boolean=true</code>) - if <code>false</code> week numbers will be hidden</li>
+        <li><code>startingDay</code> (<code>?number=0</code>) - starting day of the week from 0-6 (0=Sunday, ..., 6=Saturday).</li>
+        <li><code>initDate</code> (<code>?Date</code>) - default date to show if <code>ng-model</code> value is not specified</li>
+        <li><code>minMode</code> (<code>?string='day'</code>) - set lower datepicker mode, supports: <code>day</code>, <code>month</code>, <code>year</code></li>
+        <li><code>maxMode</code> (<code>?string='year'</code>) - sets upper datepicker mode, supports: <code>day</code>, <code>month</code>, <code>year</code></li>
+        <li><code>formatDay</code> (<code>?string='dd'</code>) - format of day in month</li>
+        <li><code>formatMonth</code> (<code>?string='MMMM'</code>) - format of month in year</li>
+        <li><code>formatMear</code> (<code>?string='yyyy'</code>) - format of year in year range</li>
+        <li><code>formatDayHeader</code> (<code>?string='EEE'</code>) - format of day in week header</li>
+        <li><code>formatDayTitle</code> (<code>?string='MMMM yyyy'</code>) - format of title when selecting day</li>
+        <li><code>formatMonthTitle</code> (<code>?string='yyyy'</code>) - format of title when selecting month</li>
+        <li><code>yearRange</code> (<code>?number=20</code>) - number of years displayed in year selection</li>
+        <li><code>shortcutPropagation</code> (<code>?boolean=false</code>) - if <code>true</code> shortcut`s event propagation will be disabled</li>
+        <li><code>onlyCurrentMonth</code> (<code>?boolean=false</code>) - if <code>true</code> only dates from the currently displayed month will be shown</li>
+      </ul>
+    </div>
+  </div>
+</div>

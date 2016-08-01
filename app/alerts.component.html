@@ -1,0 +1,82 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">Alerts Component</div>
+  <div class="panel-body">
+      <h4>Alerts:</h4>
+      <p>The alerts component provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.</p>
+      <p>Base specifications: bootstrap 3 or bootstrap 4. </p>
+      <p>This directive can be used to generate alerts from the dynamic model data (using the <code>ng-for</code> directive).</p>
+      <hr/>
+
+      <div class="row">
+        <div class="col-md-4">
+          <h4>New Alert:</h4>
+          <label for="message">Alert message:</label>
+          <input type="text" name="message" class="form-control" [(ngModel)]="alertObj.message" />
+          <label for="type">Alert type:</label>
+          <select class="form-control" [(ngModel)]="alertObj.type">
+            <option value="danger">danger</option>
+            <option value="success">success</option>
+            <option value="info">info</option>
+            <option value="warning">warning</option>
+          </select>
+          <label for="closable">Closable:</label>
+          <select class="form-control" [(ngModel)]="alertObj.closable">
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+          <label for="dismissTime">Dismiss time(s):</label>
+          <input type="number" name="dismissTime" class="form-control" [(ngModel)]="alertObj.dismissTime" min="0"/>
+
+          <button type="button" class='btn btn-sm btn-primary mr-t-20' (click)="addAlert()">Add Alert</button>
+        </div>
+
+        <div class="col-md-8">
+          <h4>Alerts Lists:</h4>
+          <alert *ngFor="let alert of alerts;let i = index" [type]="alert.type" [dismissible]="alert.closable" [dismissOnTimeout]="alert.dismissTime" (close)="closeAlert(i)">
+            {{ alert?.message }}
+          </alert>
+        </div>
+      </div>
+      <hr/>
+
+      <div class="mr-t-20">
+        <h4>Example Code:</h4>
+        <pre class="prettyprint">
+           <code>
+             // Alerts template
+             &lt;alert *ngFor="let alert of alerts;let i = index" [type]="alert.type" [dismissible]="alert.closable" [dismissOnTimeout]="alert.dismissTime" (close)="closeAlert(i)"&gt;{ { alert?.message } }&lt;/alert&gt;
+
+             // Add new alert button
+             &lt;button type="button" class='btn btn-sm btn-primary mr-t-20' (click)="addAlert()"&gt;Add Alert&lt;/button&gt;
+
+             // Add new alert function
+             public addAlert():void {
+               this.alertObj.closable = (this.alertObj.closable === true || this.alertObj.closable === 'true');
+               this.alertObj.dismissTime < 0 ? this.alertObj.dismissTime = 0 : this.alertObj.dismissTime;
+
+               this.alerts.push({
+                 message: this.alertObj.message,
+                 type: this.alertObj.type,
+                 closable: this.alertObj.closable,
+                 dismissTime: this.alertObj.dismissTime * 1000
+               });
+             }
+           </code>
+        </pre>
+
+        <h4>Alert properties:</h4>
+        <div>
+          <ul>
+            <li><code>type</code> (<code>?:string='warning'</code>) - provide one of the four supported contextual classes:<code>success</code>,<code>info</code>, <code>warning</code>, <code>danger</code></li>
+            <li><code>dismissible</code> (<code>?:boolean=false</code>) - determines if an inline close button is displayed</li>
+            <li><code>dismissOnTimeout</code> (<code>?number=0</code>) - number of milliseconds, if specified sets a timeout duration, after which the alert will be closed</li>
+          </ul>
+        </div>
+
+        <h4>Alert events:</h4>
+        <ul>
+          <li><code>close</code> - fired when <code>alert</code> closed with inline button or by timeout, <code>$event</code> is an instance of <code>Alert</code> component</li>
+        </ul>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div class='panel panel-primary mr-t-20'>
+  <div class="panel-heading">{{title}}</div>
+  <div class="panel-body">
+    <!-- section box -->
+    <h4>Accordion:</h4>
+    <p>The accordion component builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.</p>
+
+    <hr/>
+
+      <div>
+        <h5 class="header-bolder">1. Accordion initially expanded</h5>
+        <accordion>
+          <accordion-group heading="Static Header, initially expanded" [isOpen]="isFirstOpen" panelClass="panel-primary">
+            This content is straight in the template.
+           <br>The accordion component builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.
+           <br>Base specifications: bootstrap 3 or bootstrap 4
+          </accordion-group>
+        </accordion>
+        <div>
+          <h5 class="header-bolder">Example code:</h5>
+          <pre class="prettyprint lang-html">
+             <code>
+               &lt;!-- Accordion initially expanded template --&gt;
+               &lt;accordion&gt;
+                 &lt;accordion-group heading="Static Header, initially expanded" [isOpen]="isFirstOpen" panelClass="panel-primary"&gt;
+                   This content is straight in the template.
+                  &lt;br&gt;The accordion component builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.
+                  &lt;br&gt;Base specifications: bootstrap 3 or bootstrap 4
+                 &lt;/accordion-group&gt;
+               &lt;/accordion&gt;
+             </code>
+          </pre>
+        </div>
+      </div>
+
+    <hr/>
+
+    <div class="mr-t-20">
+        <h5 class="header-bolder">2. Accordion Group</h5>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="oneAtATime"> Open only one at a time
+          </label>
+        </div>
+        <accordion [closeOthers]="oneAtATime">
+          <accordion-group *ngFor="let group of groups" [heading]="group.title" panelClass="panel-info">
+            {{group?.content}}
+          </accordion-group>
+        </accordion>
+        <div>
+          <h5 class="header-bolder">Example code:</h5>
+          <pre class="prettyprint lang-html">
+             <code>
+               &lt;!-- Accordion group template --&gt;
+               &lt;accordion [closeOthers]="oneAtATime"&gt;
+                 &lt;accordion-group *ngFor="let group of groups" [heading]="group.title" panelClass="panel-info"&gt;
+                   { { group?.content } }
+                 &lt;/accordion-group&gt;
+               &lt;/accordion&gt;
+             </code>
+          </pre>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="mr-t-20">
+        <h5 class="header-bolder">3. Dynamic Accordion</h5>
+        <button type="button" class="btn btn-default btn-sm mr-b-10" (click)="addItem()">Add Item</button>
+        <p>The body of the accordion group grows to fit the contents</p>
+        <accordion>
+          <accordion-group heading="Dynamic Body Content" panelClass="panel-success" [isOpen]="true">
+            <div *ngFor="let item of items">
+              {{item}}
+            </div>
+          </accordion-group>
+        </accordion>
+        <div>
+          <h5 class="header-bolder">Example code:</h5>
+          <pre class="prettyprint lang-html">
+             <code>
+               &lt;!-- Dynamic accordion template --&gt;
+               &lt;accordion&gt;
+                 &lt;accordion-group heading="Dynamic Body Content" panelClass="panel-success" [isOpen]="true"&gt;
+                   &lt;div *ngFor="let item of items"&gt;
+                     { { item } }
+                   &lt;/div&gt;
+                 &lt;/accordion-group&gt;
+               &lt;/accordion&gt;
+             </code>
+          </pre>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="mr-t-20">
+        <h5 class="header-bolder">4. Markup Accordion</h5>
+        <button type="button" class="btn btn-default btn-sm mr-b-10" (click)="status.isOpen = !status.isOpen">Toggle panel</button>
+        <button type="button" class="btn btn-default btn-sm mr-b-10" (click)="status.isDisabled = ! status.isDisabled">Enable / Disable panel</button>
+        <accordion>
+          <accordion-group let group [(isOpen)]="status.isOpen" [isDisabled]="status.isDisabled">
+            <div accordion-heading>
+              I can have markup,too!
+              <i class="pull-right glyphicon" [ngClass]="{'glyphicon-chevron-down': status.isOpen, 'glyphicon-chevron-right': !status.isOpen}"></i>
+            </div>
+            {{group}}
+            This is just some content to illustrate fancy headings.
+          </accordion-group>
+        </accordion>
+        <div>
+          <h5 class="header-bolder">Example code:</h5>
+          <pre class="prettyprint lang-html">
+             <code>
+               &lt;!-- Markup accordion template --&gt;
+               &lt;button type="button" class="btn btn-default btn-sm mr-b-10" (click)="status.isOpen = !status.isOpen"&gt;Toggle panel&lt;/button&gt;
+               &lt;button type="button" class="btn btn-default btn-sm mr-b-10" (click)="status.isDisabled = ! status.isDisabled"&gt;Enable / Disable panel&lt;/button&gt;
+               &lt;accordion&gt;
+                 &lt;accordion-group let group [(isOpen)]="status.isOpen" [isDisabled]="status.isDisabled"&gt;
+                   &lt;div accordion-heading&gt;
+                     I can have markup,too!
+                     &lt;i class="pull-right glyphicon" [ngClass]="{'glyphicon-chevron-down': status.isOpen, 'glyphicon-chevron-right': !status.isOpen}"&gt;&lt;/i&gt;
+                   &lt;/div&gt;
+                   { { group } }
+                   This is just some content to illustrate fancy headings.
+                 &lt;/accordion-group&gt;
+               &lt;/accordion&gt;
+             </code>
+          </pre>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="mr-t-20">
+      <h4 id="accordion-properties">Accordion properties:</h4>
+      <ul>
+        <li><code>closeOthers</code> (<code>?boolean=false</code>) - if <code>true</code> expanding one item will close all others</li>
+      </ul>
+      <h4 id="accordion-group-properties">Accordion Group properties:</h4>
+      <ul>
+        <li><code>heading</code> (<code>?string=''</code>) - clickable text in accordion's group header, check <code>accordion heading</code> below for using html in header</li>
+        <li><code>isOpen</code> (<code>?boolean=false</code>) - is accordion group open or closed</li>
+        <li><code>isDisabled</code> (<code>?boolean=false</code>) - if <code>true</code> disables accordion group</li>
+        <li><code>panelClass</code> (<code>?string='panel-default'</code>) - provides an ability to use Bootstrap's contextual panel classes (<code>panel-primary</code>, <code>panel-success</code>, <code>panel-info</code>, etc...). List of all available classes
+          <a href="http://getbootstrap.com/components/#panels-alternatives">link</a></li>
+      </ul>
+      <h4 id="accordion-heading">Accordion heading:</h4>
+      <p>Instead of the <code>heading</code> attribute on the <code>accordion-group</code>, you can use an <code>accordion-heading</code> attribute on <code>any</code> element inside a group that will be used as the group's header template.</p>
+    </div>
+</div>

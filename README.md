@@ -30,3 +30,6 @@ This Angular2 UI-Bootstrap Components contains those components:
 * `Tabs` - Add quick, dynamic tab functionality to transition through panes of local content, even via dropdown menus.
 * `Tooltip` - Tooltip are an updated version, which don’t rely on images, use CSS3 for animations, and much more.
 * `Typeahead` - The typeahead component can be used to quickly create elegant typeaheads with any form text input.
+
+## Screenshots Example
+![Screenshots Example](https://github.com/huangxubo23/Angular2-UIBootstrap-Component/blob/master/screenshots/Angular2%20UI%20Bootstrap%20Components_Tabs.png)

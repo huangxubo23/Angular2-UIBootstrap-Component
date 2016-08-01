@@ -33,3 +33,5 @@ This Angular2 UI-Bootstrap Components contains those components:
 
 ## Screenshots Example
 ![Screenshots Example](https://github.com/huangxubo23/Angular2-UIBootstrap-Component/blob/master/screenshots/Angular2%20UI%20Bootstrap%20Components_Tabs.png)
+
+Click [screeshots](https://github.com/huangxubo23/Angular2-UIBootstrap-Component/tree/master/screenshots) to see more example pictures.
